@@ -1,4 +1,4 @@
-package com.localCachingWithJetpackCompose.ui.theme
+package com.localCachingWithJetpackCompose.presentation.theme
 
 import androidx.compose.material.Typography
 import androidx.compose.ui.text.TextStyle

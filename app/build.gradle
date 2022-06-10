@@ -4,7 +4,13 @@ plugins {
     id 'kotlin-kapt'
     id 'kotlin-parcelize'
     id 'com.google.devtools.ksp' version '1.6.21-1.0.5'
+    id 'dagger.hilt.android.plugin'
 }
+
+def apikeyPropertiesFile = rootProject.file("local.properties")
+def apikeyProperties = new Properties()
+apikeyProperties.load(new FileInputStream(apikeyPropertiesFile))
+
 
 android {
     compileSdk 32
@@ -15,7 +21,7 @@ android {
         targetSdk 32
         versionCode 1
         versionName "1.0"
-
+        buildConfigField("String", "STOCK_API_KEY", apikeyProperties["stocks_api_key"])
         vectorDrawables {
             useSupportLibrary true
         }
@@ -85,7 +91,6 @@ dependencies {
     // dagger-hilt
     implementation "com.google.dagger:hilt-android:2.40.5"
     kapt "com.google.dagger:hilt-android-compiler:2.40.5"
-    implementation "androidx.hilt:hilt-lifecycle-viewmodel:1.0.0-alpha03"
     kapt "androidx.hilt:hilt-compiler:1.0.0"
     implementation "androidx.hilt:hilt-navigation-compose:1.0.0"
 
