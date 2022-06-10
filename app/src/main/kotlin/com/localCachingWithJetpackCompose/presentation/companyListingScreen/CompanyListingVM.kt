@@ -31,7 +31,6 @@ class CompanyListingVM @Inject constructor(private val repository: StockReposito
                 state = state.copy(searchQuery = events.query)
                 searchJob?.cancel()
                 searchJob = viewModelScope.launch {
-                    delay(500)
                     getCompanyListings(searchQuery = events.query, false)
                 }
             }
@@ -42,7 +41,7 @@ class CompanyListingVM @Inject constructor(private val repository: StockReposito
         searchQuery: String = state.searchQuery.lowercase(Locale.ROOT),
         fetchFromRemote: Boolean = false
     ) {
-        viewModelScope.launch(Dispatchers.IO) {
+        viewModelScope.launch {
             repository.getCompanyListings(fetchFromRemote, searchQuery)
                 .collect { result ->
                     when (result) {
